@@ -57,3 +57,10 @@ Tendo em conta a tabela anterior é possível controlar a velocidade dos motores
 Considerando o 0 < PWM < 1, adptando para o valor usado pelo arduino (0 < PWM < 255) -> 255 - PWM.
 
 Tratando-se de um robô com condução diferencial, é possível fazer o robô mudar de direção ao aumentar (ou diminuir) a velocidade de uma roda em relação à outra.
+
+### Sensores
+
+#### Sensor de Chama
+
+Para detetar a vela o robô dispõe de um sensor de infravermelhos. 
+O sensor é capaz de     

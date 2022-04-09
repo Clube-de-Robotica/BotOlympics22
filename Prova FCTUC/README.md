@@ -58,7 +58,7 @@ Considerando o 0 < PWM < 1, adptando para o valor usado pelo arduino (0 < PWM < 
 
 Tratando-se de um robô com condução diferencial, é possível fazer o robô mudar de direção ao aumentar (ou diminuir) a velocidade de uma roda em relação à outra.
 
-**INSERIR IMAGEM CONDUÇÃO DIFERENCIAL**
+![Exemplo Condução diferencial]("./Prova FCTUC/assets/condDiferencial_Fundo.png" "Condução Diferencial")
 
 ### Sensores
 

@@ -6,6 +6,10 @@ Neste repositório podes encontrar todo o tipo de código que necessitas para qu
 
 ## Links uteis
 
+### Geral  
+
+[Motivational Quotes (🇬🇧)](https://www.brainyquote.com/topics/motivational-quotes).  
+
 ### Prova Bot'N Roll e FCTUC
 
 **Documentação Arduino**  
@@ -14,7 +18,7 @@ Neste repositório podes encontrar todo o tipo de código que necessitas para qu
 
 **Fórums Online**  
 [Fórum Arduino (🇬🇧)](https://forum.arduino.cc/)  
-[Stackexchange Arduino (🇬🇧/‼)](https://arduino.stackexchange.com/)  
+[Stackexchange Arduino (🇬🇧)](https://arduino.stackexchange.com/)  
 
 **Em caso de desespero extremo**  
 [Fórum mais tóxico da internet (☠)](https://stackoverflow.com/questions)  

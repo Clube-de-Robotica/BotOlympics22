@@ -1,5 +1,5 @@
 // =============================================================
-// = Exemplo Sensor de Chama                    BotOlympics 2022
+// = Exemplo Botão e Ventoinha                  BotOlympics 2022
 // = JNDVasco - Rev 1.0
 // =
 // = Descrição:
@@ -32,6 +32,6 @@ void loop()
     int sensorValue = analogRead(flameSensor);
 
     Serial.print("Valor Sensor: " + String(sensorValue));
-    Serial.println("\tChama detetada: " + String((sensorValue <= flameTreshold) ? "Sim!" : "Nao!"));
-    delay(250);
+    Serial.println("\tChama detetada: " + ((sensorValue >= flameTreshold) ? "Sim!" : "Não!"));
+    delay(100);
 }

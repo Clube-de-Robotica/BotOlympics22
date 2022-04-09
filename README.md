@@ -4,6 +4,18 @@
 ## Introdução
 Neste repositório podes encontrar todo o tipo de código que necessitas para qualquer uma das 3 provas da competição.
 
+## Links uteis
+
+**Documentação Arduino**  
+[Language Reference Oficial Arduino (🇬🇧/🇵🇹)](https://www.arduino.cc/reference/en/).  
+[Language Wiring Framework (🇬🇧)](http://wiring.org.co/reference/).  
+
+**Fórum Arduino**
+[Fórum Arduino (🇬🇧))](https://forum.arduino.cc/)  
+
+**Em caso de desespero extremo**
+[Fórum mais tóxico da internet (☠))](https://stackoverflow.com)  
+
 
 ## Estrutura do Repositório
 ```

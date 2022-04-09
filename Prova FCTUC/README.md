@@ -40,12 +40,12 @@ O Robô está equipado com 2 motores, controlados atráves de uma *H-Bridge* DRV
 |   1   |   0   |   H  |   L  | Sentido Anti-Horário |
 |   1   |   1   |   L  |   L  |        Travar        |
 
-L -> Ligado a GND <br/>
-H -> Ligado a VCC <br/>
-Z -> Alta Impedância <br/>
+L -> Ligado a GND  
+H -> Ligado a VCC  
+Z -> Alta Impedância  
 
 
-Tendo em conta a tabela anterior é possível controlar a velocidade dos motores da seguinte forma
+Tendo em conta a tabela anterior é possível controlar a velocidade dos motores da seguinte forma:
 
 | Dir |   PWM   |        Função        |
 |:---:|:-------:|:--------------------:|
@@ -56,13 +56,16 @@ Tendo em conta a tabela anterior é possível controlar a velocidade dos motores
 
 Considerando o 0 < PWM < 1, adptando para o valor usado pelo arduino (0 < PWM < 255) -> 255 - PWM.
 
-Tratando-se de um robô com condução diferencial, é possível fazer o robô mudar de direção ao aumentar (ou diminuir) a velocidade de uma roda em relação à outra.
-
+Tratando-se de um robô com condução diferencial, é possível fazer o robô mudar de direção ao aumentar (ou diminuir) a velocidade de uma roda em relação à outra. Ao rodar as rodas com velocidades iguais mas sentidos opostos é possível fazer o robô rodar sobre si próprio.  
+Na imagem é possível ver os exemplos mencionados.  
 ![Exemplo Condução diferencial](https://github.com/JNDVasco/BotOlympics22/blob/main/Prova%20FCTUC/assets/condDiferencial_Fundo.png "Condução Diferencial")
+
+
 
 ### Sensores
 
 #### Sensor de Chama
 
 Para detetar a vela o robô dispõe de um sensor de infravermelhos. 
-O sensor é capaz de     
+O sensor é capaz de detetar uma chama diretamente à sua frente, devolendo um sinal analógico que pode ser obtido através de um ADC do arduino.  
+Para testar o sensor e obter os valores *treshold* existe um código de exemplo [aqui](exemplos/sensorChama.c "Exemplo Sensor de Chama").

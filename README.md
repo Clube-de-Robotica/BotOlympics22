@@ -4,11 +4,13 @@
 ## Introdução
 Neste repositório podes encontrar todo o tipo de código que necessitas para qualquer uma das 3 provas da competição.
 
-## Links uteis
+## Links úteis
 
 ### Geral  
 
 [Motivational Quotes (🇬🇧)](https://www.brainyquote.com/topics/motivational-quotes).  
+[Motivational Quotes com Imagens (🇬🇧)](https://quotefancy.com/motivational-quotes).  
+
 
 ### Prova Bot'N Roll e FCTUC
 
@@ -38,13 +40,14 @@ Neste repositório podes encontrar todo o tipo de código que necessitas para qu
         ├──src        -> Código Fonte
         ├──README.md  -> Documentação Biblioteca 📚
     ├──Exemplos       -> Alguns Exemplos
-    ├──Formação_FCTUC -> Powerpoint usado na formação 📚
+    ├──Formação_FCTUC -> Powerpoint usado na formação FCTUC 📚
     ├──README.md      -> Documentação Robô 🤖
 ├──Prova Bot'N Roll   -> Tudo para a Prova Bot'N Roll
     ├──Biblioteca     -> Bibloteca para interagires com o teu One A 🤖
-    ├──Formação_BnR   -> Powerpoint usado na formação 📚
+    ├──Formação_BnR   -> Powerpoint usado na formação Bot'N Roll 📚
     ├──README.md      -> Documentação Robô 🤖
 ├──Prova ISR          -> Tudo para a Prova ISR
     ├──README.md      -> Documentação Robô 🤖
+├──Formação_Arduino   -> Powerpoint usado na formação de Arduino 📚
 ├──README.md          -> Estás Aqui 🎯
 ```

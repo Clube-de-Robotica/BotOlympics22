@@ -10,11 +10,12 @@ Neste repositório podes encontrar todo o tipo de código que necessitas para qu
 [Language Reference Oficial Arduino (🇬🇧/🇵🇹)](https://www.arduino.cc/reference/en/).  
 [Language Wiring Framework (🇬🇧)](http://wiring.org.co/reference/).  
 
-**Fórum Arduino**  
-[Fórum Arduino (🇬🇧))](https://forum.arduino.cc/)  
+**Fórums Online**  
+[Fórum Arduino (🇬🇧)](https://forum.arduino.cc/)  
+[Stackexchange Arduino (🇬🇧/‼)](https://arduino.stackexchange.com/)  
 
 **Em caso de desespero extremo**  
-[Fórum mais tóxico da internet (☠))](https://stackoverflow.com)  
+[Fórum mais tóxico da internet (☠)](https://stackoverflow.com/questions)  
 
 
 ## Estrutura do Repositório

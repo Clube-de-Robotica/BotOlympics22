@@ -4,6 +4,25 @@
 ## Introdução
 Neste repositório podes encontrar todo o tipo de código que necessitas para qualquer uma das 3 provas da competição.
 
+## Estrutura do Repositório
+```
+├──Prova FCTUC        -> Tudo para a Prova FCTUC
+    ├──Biblioteca     -> Biblioteca que podes usar para interagir com o 🤖
+        ├──src        -> Código Fonte
+        ├──README.md  -> Documentação Biblioteca 📚
+    ├──Exemplos       -> Alguns Exemplos
+    ├──Formação_FCTUC -> Powerpoint usado na formação FCTUC 📚
+    ├──README.md      -> Documentação Robô 🤖
+├──Prova Bot'N Roll   -> Tudo para a Prova Bot'N Roll
+    ├──Biblioteca     -> Bibloteca para interagires com o teu One A 🤖
+    ├──Formação_BnR   -> Powerpoint usado na formação Bot'N Roll 📚
+    ├──README.md      -> Documentação Robô 🤖
+├──Prova ISR          -> Tudo para a Prova ISR
+    ├──README.md      -> Documentação Prova
+├──Formação_Arduino   -> Powerpoint usado na formação de Arduino 📚
+├──README.md          -> Estás Aqui 🎯
+```
+
 ## Links úteis
 
 ### Geral  
@@ -16,7 +35,7 @@ Neste repositório podes encontrar todo o tipo de código que necessitas para qu
 
 **Documentação Arduino**  
 [Language Reference Oficial Arduino (🇬🇧/🇵🇹)](https://www.arduino.cc/reference/en/).  
-[Language Wiring Framework (🇬🇧)](http://wiring.org.co/reference/).  
+[Reference Wiring Framework (🇬🇧)](http://wiring.org.co/reference/).  
 
 **Fórums Online**  
 [Fórum Arduino (🇬🇧)](https://forum.arduino.cc/)  
@@ -32,22 +51,3 @@ Neste repositório podes encontrar todo o tipo de código que necessitas para qu
 [Documentação mBot (🇬🇧)](http://docs.makeblock.com/mbot/en/).  
 
 
-
-## Estrutura do Repositório
-```
-├──Prova FCTUC        -> Tudo para a Prova FCTUC
-    ├──Biblioteca     -> Biblioteca que podes usar para interagir com o 🤖
-        ├──src        -> Código Fonte
-        ├──README.md  -> Documentação Biblioteca 📚
-    ├──Exemplos       -> Alguns Exemplos
-    ├──Formação_FCTUC -> Powerpoint usado na formação FCTUC 📚
-    ├──README.md      -> Documentação Robô 🤖
-├──Prova Bot'N Roll   -> Tudo para a Prova Bot'N Roll
-    ├──Biblioteca     -> Bibloteca para interagires com o teu One A 🤖
-    ├──Formação_BnR   -> Powerpoint usado na formação Bot'N Roll 📚
-    ├──README.md      -> Documentação Robô 🤖
-├──Prova ISR          -> Tudo para a Prova ISR
-    ├──README.md      -> Documentação Robô 🤖
-├──Formação_Arduino   -> Powerpoint usado na formação de Arduino 📚
-├──README.md          -> Estás Aqui 🎯
-```

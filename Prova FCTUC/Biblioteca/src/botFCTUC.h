@@ -87,6 +87,11 @@ private:
     // Color Sensor
     Adafruit_TCS34725 _colorSensor;
     //----------------------------------------------------------
+    // Motors Polarity
+    const uint8_t _maxPwm = 255;
+    bool _isMotor1Correct = true;
+    bool _isMotor2Correct = true;
+    //----------------------------------------------------------
 
 public:
     botFCTUC();
@@ -96,26 +101,26 @@ public:
     void setupLidar();
 
     // Fan Control Routines
-    void fanSetup();
+    void setupFan();
     void fanOn();
     void fanOff();
 
     // Button Routines
-    void buttonSetup();
+    void setupButton();
     void waitStart();
     bool readButton();
 
     // Buzzer Routines
-    void buzzerSetup();
+    void setupBuzzer();
     void buzzerPlay(uint8_t val);
 
     // NeoPixel Routines
-    void neopixelSetup();
+    void setupNeopixel();
     void pixelSetColor(uint8_t Red, uint8_t Green, uint8_t Blue);
     void pixelSetBrightness(uint8_t Brightness);
 
     // Flame Sensor
-    void flameSetup();
+    void setupFlame();
     uint16_t getFlame();
     void printFlame();
 
@@ -124,5 +129,12 @@ public:
     void getColor(uint16_t RGBC[]);
     void enableColorSensor();
     void disableColorSensor();
+
+    // Motors
+    void setupMotores(bool isMotor1Correct, bool isMotor2Correct);
+    void moveMotor1(int16_t pwm);
+    void moveMotor2(int16_t pwm);
+    void move(int16_t pwmM1, int16_t pwmM2);
+    void stopMotors();
 };
 #endif

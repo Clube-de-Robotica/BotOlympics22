@@ -1,10 +1,9 @@
 // =============================================================
-// = Function File botFTCUC                     BotOlympics 2022
+// = Functions File botFTCUC                    BotOlympics 2022
 // = JNDVasco - Rev 1.0
 // =
 // =============================================================
 #include "botFCTUC.h"
-#include <Arduino.h>
 
 /*!
   @brief
@@ -20,11 +19,11 @@
 botFCTUC::botFCTUC()
 {
   // Setup Fan
-  fanSetup();
+  setupFan();
   // Setup Button
-  buttonSetup();
+  setupButton();
   // Setup Buzzer
-  buzzerSetup();
+  setupBuzzer();
 
 } // End Constructor
 
@@ -40,10 +39,10 @@ botFCTUC::~botFCTUC()
 /*!
   @brief   Set up the Fan
 */
-void botFCTUC::fanSetup()
+void botFCTUC::setupFan()
 {
   pinMode(_fanPin, OUTPUT);
-  fanOff();
+  this->fanOff();
 } // End fanSetup
 
 /*!
@@ -71,7 +70,7 @@ void botFCTUC::fanOff()
 /*!
   @brief   Set up the Button
 */
-void botFCTUC::buttonSetup()
+void botFCTUC::setupButton()
 {
   pinMode(_buttonPin, INPUT);
 }
@@ -111,10 +110,10 @@ bool botFCTUC::readButton()
 /*!
   @brief   Set up the Buzzer
 */
-void botFCTUC::buzzerSetup()
+void botFCTUC::setupBuzzer()
 {
   pinMode(_buzzerPin, OUTPUT);
-  buzzerPlay(0);
+  this->buzzerPlay(0);
 }
 /*!
   @brief   Play a sound on the buzzer
@@ -131,7 +130,7 @@ void botFCTUC::buzzerPlay(uint8_t val)
 /*!
   @brief   Set up the neopixel
 */
-void botFCTUC::neopixelSetup()
+void botFCTUC::setupNeopixel()
 {
   pinMode(_neopixelPin, OUTPUT);
 
@@ -139,8 +138,8 @@ void botFCTUC::neopixelSetup()
   this->_pixel = new Adafruit_NeoPixel(1, _neopixelPin,
                                        NEO_GRB + NEO_KHZ800);
   this->_pixel->begin();
-  pixelSetBrightness(255);
-  pixelSetColor(255, 255, 255);
+  this->pixelSetBrightness(255);
+  this->pixelSetColor(255, 255, 255);
   // DEBUG_PRINTLN("[INFO] - NeoPixel Started");
 }
 
@@ -176,7 +175,7 @@ void botFCTUC::pixelSetBrightness(uint8_t Brightness)
 /*!
   @brief   Set up the flame sensor
 */
-void botFCTUC::flameSetup()
+void botFCTUC::setupFlame()
 {
   pinMode(_flameSensor, INPUT);
 }
@@ -195,7 +194,7 @@ uint16_t botFCTUC::getFlame()
 */
 void botFCTUC::printFlame()
 {
-  DEBUG_PRINTLN("Flame Sensor: " + String(getFlame()));
+  DEBUG_PRINTLN("Flame Sensor: " + String(this->getFlame()));
 }
 
 // =============================================================
@@ -239,4 +238,143 @@ void botFCTUC::enableColorSensor()
 void botFCTUC::disableColorSensor()
 {
   _colorSensor.disable();
+}
+
+// =============================================================
+// = Motors Control Funtions ===================================
+// =============================================================
+/*
+| Dir |   PWM   |        Função        |
+|:---:|:-------:|:--------------------:|
+|  0  |    0    |    Abrandar Lento    |
+|  0  |   PWM   |    Sentido Horário   |
+|  1  | 1 - PWM | Sentido Anti-Horário |
+|  1  |    1    |        Travar        |
+*/
+
+/*!
+  @brief   Set up the motors
+*/
+void botFCTUC::setupMotores(bool isMotor1Correct, bool isMotor2Correct)
+{
+  this->_isMotor1Correct = isMotor1Correct;
+  this->_isMotor2Correct = isMotor2Correct;
+
+  pinMode(_motor1Dir, OUTPUT);
+  pinMode(_motor1PWM, OUTPUT);
+  pinMode(_motor2Dir, OUTPUT);
+  pinMode(_motor2PWM, OUTPUT);
+
+  this->stopMotors();
+}
+/*!
+  @brief   Control Motor 1
+  @param   pwm The desired PWM for the motor, accepts value between
+               and only between -255 to 255
+*/
+void botFCTUC::moveMotor1(int16_t pwm) // aceita valores entre -255 e 255
+{
+
+  constrain(pwm, -1 * _maxPwm, _maxPwm);
+
+  /*
+   * 1st case is for the correct polarity
+   */
+  if (_isMotor1Correct)
+  {
+    if (pwm > 0)
+    {
+      digitalWrite(_motor1Dir, LOW);
+      analogWrite(_motor1PWM, pwm);
+    }
+    else
+    {
+      pwm = _maxPwm + pwm;
+      digitalWrite(_motor1Dir, HIGH);
+      analogWrite(_motor1PWM, pwm);
+    }
+  }
+  else
+  /*
+   * 2nd case is for the incorrect polarity
+   */
+  {
+    if (pwm > 0)
+    {
+      pwm = _maxPwm - pwm;
+      digitalWrite(_motor1Dir, LOW);
+      analogWrite(_motor1PWM, pwm);
+    }
+    else
+    {
+      digitalWrite(_motor1Dir, HIGH);
+      analogWrite(_motor1PWM, abs(pwm));
+    }
+  }
+}
+/*!
+  @brief   Control Motor 2
+  @param   pwm The desired PWM for the motor, accepts value between
+               and only between -255 to 255
+*/
+void botFCTUC::moveMotor2(int16_t pwm) // aceita valores entre -255 e 255
+{
+  constrain(pwm, -1 * _maxPwm, _maxPwm);
+
+  /*
+   * 1st case is for the correct polarity
+   */
+  if (_isMotor2Correct)
+  {
+    if (pwm > 0)
+    {
+      digitalWrite(_motor2Dir, LOW);
+      analogWrite(_motor2PWM, pwm);
+    }
+    else
+    {
+      pwm = _maxPwm + pwm;
+      digitalWrite(_motor2Dir, HIGH);
+      analogWrite(_motor2PWM, pwm);
+    }
+  }
+  else
+  /*
+   * 2nd case is for the incorrect polarity
+   */
+  {
+    if (pwm > 0)
+    {
+      pwm = _maxPwm - pwm;
+      digitalWrite(_motor2Dir, LOW);
+      analogWrite(_motor2PWM, pwm);
+    }
+    else
+    {
+      digitalWrite(_motor2Dir, HIGH);
+      analogWrite(_motor2PWM, abs(pwm));
+    }
+  }
+}
+
+/*!
+  @brief   Control the motors speed
+  @param   pwmM1 The desired PWM for motor 1, accepts value between
+               and only between -255 to 255
+  @param   pwmM2 The desired PWM for motor 2, accepts value between
+               and only between -255 to 255
+*/
+void botFCTUC::move(int16_t pwmM1, int16_t pwmM2)
+{
+  this->moveMotor1(pwmM1);
+  this->moveMotor2(pwmM2);
+}
+
+/*!
+  @brief   Bring Motors to a stop, this blocks the code for 50 milliseconds
+*/
+void botFCTUC::stopMotors()
+{
+  this->move(0, 0);
+  delay(50);
 }

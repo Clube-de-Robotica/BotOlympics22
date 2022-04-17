@@ -15,9 +15,7 @@ Neste repositório podes encontrar todo o tipo de código que necessitas para qu
 ├──Prova Bot'N Roll       -> Tudo para a Prova Bot'N Roll
     ├──Biblioteca         -> Bibloteca para interagires com o teu One A 🤖
     ├──README.md          -> Documentação Robô 🤖
-├──Prova ISR              -> Tudo para a Prova ISR
-    ├──README.md          -> Documentação Prova
-├──Prova ISR              -> Powerpoints usados nas formações 📚
+├──Formações              -> Powerpoints usados nas formações 📚
     ├──Formação_Arduino   -> Powerpoint usado na formação de Arduino 📚
     ├──Formação_BnR       -> Powerpoint usado na formação Bot'N Roll 📚
     ├──Formação_FCTUC     -> Powerpoint usado na formação FCTUC 📚

@@ -27,6 +27,11 @@ botFCTUC::~botFCTUC()
 {
 } // End Destructor
 
+/*!
+  @brief   Set up the robot
+  @param   M1 If the motor 1 spins the correct way or not
+  @param   M2 If the motor 2 spins the correct way or not
+*/
 void botFCTUC::begin(bool M1, bool M2)
 {
   // Setup Fan

@@ -1,0 +1,4 @@
+1 - Install Vscode
+2 - Add platformio extention, https://platformio.org/install/ide?install=vscode
+3 - Install CP210 driver
+4 - Start Programming ;)

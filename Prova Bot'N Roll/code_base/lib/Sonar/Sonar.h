@@ -6,7 +6,6 @@
 #define Sonar_h
 
 #include "Arduino.h"
-#include "MedianFilterLib.h"
 
 #define LSonarTrigPin 6
 #define LSonarEchoPin 7
@@ -31,8 +30,6 @@
 #define MAX_DURATION ((2.0 * MAX_DIST) / SPEED_SOUND) * 1e6
 #define VEL_CONST 58.7755
 
-#define MEDIAN 0
-
 class Sonar
 {
 private:
@@ -48,9 +45,6 @@ private:
   volatile byte sonar_pos = 0;
 
   void pciSetup(byte pin);
-#if MEDIAN
-  MedianFilter<long> medianFilter[3] = {MedianFilter<long>(5), MedianFilter<long>(5), MedianFilter<long>(5)};
-#endif
 
 public:
   void begin();

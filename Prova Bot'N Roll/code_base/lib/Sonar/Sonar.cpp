@@ -14,12 +14,7 @@ Sonar sonar;
  */
 float Sonar::getSonarDistance(byte pos)
 {
-#if MEDIAN
-
-    return medianFilter[pos].GetFiltered() / VEL_CONST;
-#else
     return echo_duration[pos] / VEL_CONST;
-#endif
 }
 
 /**
@@ -117,9 +112,6 @@ void Sonar::echo_interrupt(byte n)
         case LOW:                                           // Low so must be the end of hte echo pulse
             echo_end[n] = micros();                         // Save the end time
             echo_duration[n] = echo_end[n] - echo_start[n]; // Calculate the pulse duration
-#if MEDIAN
-            medianFilter[n].AddValue(echo_duration[n]);
-#endif
             break;
         }
     }

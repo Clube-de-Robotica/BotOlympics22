@@ -88,7 +88,37 @@ void setup()
     Serial.println(sonar.getSonarDistance(MIDDLE_SONAR)); // get Middle Ultrasonic sensor distance value
     Serial.print("RIGHT SONAR: ");
     Serial.println(sonar.getSonarDistance(RIGH_SONAR)); // get Righ Ultrasonic sensor distance value
-    delay(2000);                                        // wait 2sec
+
+    Serial.println("LINE SENSOR VALUES: ");
+    int sensor0 = one.readAdc(0);
+    int sensor1 = one.readAdc(1);
+    int sensor2 = one.readAdc(2);
+    int sensor3 = one.readAdc(3);
+    int sensor4 = one.readAdc(4);
+    int sensor5 = one.readAdc(5);
+    int sensor6 = one.readAdc(6);
+    int sensor7 = one.readAdc(7);
+
+    // Print values on Serial Monitor
+    // Imprimir valores no Serial Monitor
+    Serial.print(sensor0);
+    Serial.print(" ");
+    Serial.print(sensor1);
+    Serial.print(" ");
+    Serial.print(sensor2);
+    Serial.print(" ");
+    Serial.print(sensor3);
+    Serial.print(" ");
+    Serial.print(sensor4);
+    Serial.print(" ");
+    Serial.print(sensor5);
+    Serial.print(" ");
+    Serial.print(sensor6);
+    Serial.print(" ");
+    Serial.print(sensor7);
+    Serial.print(" ");
+    Serial.println();
+    delay(1000); // wait 2sec
   }
 }
 
@@ -96,4 +126,12 @@ void setup()
 void loop()
 {
   // place your code here
+  if (sonar.getSonarDistance(LEFT_SONAR) >= 20 && sonar.getSonarDistance(MIDDLE_SONAR) >= 20 && sonar.getSonarDistance(RIGH_SONAR) >= 20)
+  {
+    one.move(50, 50);
+  }
+  else
+  {
+    one.brake(100, 100);
+  }
 }

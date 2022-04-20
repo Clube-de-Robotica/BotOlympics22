@@ -4,6 +4,7 @@
 // =
 // =============================================================
 #include "botFCTUC.h"
+#include <Arduino.h>
 
 /*!
   @brief
@@ -18,12 +19,6 @@
 // Constructor
 botFCTUC::botFCTUC()
 {
-  // Setup Fan
-  setupFan();
-  // Setup Button
-  setupButton();
-  // Setup Buzzer
-  setupBuzzer();
 
 } // End Constructor
 
@@ -31,6 +26,26 @@ botFCTUC::botFCTUC()
 botFCTUC::~botFCTUC()
 {
 } // End Destructor
+
+void botFCTUC::begin(bool M1, bool M2)
+{
+  // Setup Fan
+  setupFan();
+  // Setup Button
+  setupButton();
+  // Setup Buzzer
+  setupBuzzer();
+  // Setup Flame Sensor
+  setupFlame();
+  // Setup Neopixel
+  setupNeopixel();
+  // Setup
+  setupColorSensor();
+  // Setup
+  setupMotores(M1, M2);
+  // Setup Lidars
+  setupLidar();
+}
 
 // =============================================================
 // = Fan Control Funtions ======================================
@@ -139,8 +154,8 @@ void botFCTUC::setupNeopixel()
                                        NEO_GRB + NEO_KHZ800);
   this->_pixel->begin();
   this->pixelSetBrightness(255);
-  this->pixelSetColor(255, 255, 255);
-  // DEBUG_PRINTLN("[INFO] - NeoPixel Started");
+  this->pixelSetColor(0, 255, 0);
+  DEBUG_PRINTLN("[INFO] - NeoPixel Started");
 }
 
 /*!
@@ -151,11 +166,6 @@ void botFCTUC::setupNeopixel()
 */
 void botFCTUC::pixelSetColor(uint8_t Red, uint8_t Green, uint8_t Blue)
 {
-  // Prevent the user from being funny and messing with me
-  constrain(Red, 0, 255);
-  constrain(Green, 0, 255);
-  constrain(Blue, 0, 255);
-
   this->_pixel->setPixelColor(0, this->_pixel->Color(Red, Green, Blue)); // (pixelID, cor)
   this->_pixel->show();
 }
@@ -165,8 +175,6 @@ void botFCTUC::pixelSetColor(uint8_t Red, uint8_t Green, uint8_t Blue)
 */
 void botFCTUC::pixelSetBrightness(uint8_t Brightness)
 {
-  // Prevent the user from being funny and messing with me
-  constrain(Brightness, 0, 255);
   this->_pixel->setBrightness(Brightness);
 }
 // =============================================================
@@ -255,7 +263,7 @@ void botFCTUC::disableColorSensor()
 /*!
   @brief   Set up the motors
 */
-void botFCTUC::setupMotores(bool isMotor1Correct, bool isMotor2Correct)
+void botFCTUC::setupMotores(bool isMotor1Correct = true, bool isMotor2Correct = true)
 {
   this->_isMotor1Correct = isMotor1Correct;
   this->_isMotor2Correct = isMotor2Correct;
@@ -275,7 +283,7 @@ void botFCTUC::setupMotores(bool isMotor1Correct, bool isMotor2Correct)
 void botFCTUC::moveMotor1(int16_t pwm) // aceita valores entre -255 e 255
 {
 
-  constrain(pwm, -1 * _maxPwm, _maxPwm);
+  pwm = constrain(pwm, (-1 * _maxPwm), _maxPwm);
 
   /*
    * 1st case is for the correct polarity
@@ -299,16 +307,17 @@ void botFCTUC::moveMotor1(int16_t pwm) // aceita valores entre -255 e 255
    * 2nd case is for the incorrect polarity
    */
   {
-    if (pwm > 0)
+    if (pwm < 0)
     {
-      pwm = _maxPwm - pwm;
+
       digitalWrite(_motor1Dir, LOW);
-      analogWrite(_motor1PWM, pwm);
+      analogWrite(_motor1PWM, abs(pwm));
     }
     else
     {
+      pwm = _maxPwm - pwm;
       digitalWrite(_motor1Dir, HIGH);
-      analogWrite(_motor1PWM, abs(pwm));
+      analogWrite(_motor1PWM, pwm);
     }
   }
 }
@@ -319,7 +328,7 @@ void botFCTUC::moveMotor1(int16_t pwm) // aceita valores entre -255 e 255
 */
 void botFCTUC::moveMotor2(int16_t pwm) // aceita valores entre -255 e 255
 {
-  constrain(pwm, -1 * _maxPwm, _maxPwm);
+  pwm = constrain(pwm, -1 * _maxPwm, _maxPwm);
 
   /*
    * 1st case is for the correct polarity
@@ -343,16 +352,16 @@ void botFCTUC::moveMotor2(int16_t pwm) // aceita valores entre -255 e 255
    * 2nd case is for the incorrect polarity
    */
   {
-    if (pwm > 0)
+    if (pwm < 0)
     {
-      pwm = _maxPwm - pwm;
       digitalWrite(_motor2Dir, LOW);
-      analogWrite(_motor2PWM, pwm);
+      analogWrite(_motor2PWM, abs(pwm));
     }
     else
     {
+      pwm = _maxPwm - pwm;
       digitalWrite(_motor2Dir, HIGH);
-      analogWrite(_motor2PWM, abs(pwm));
+      analogWrite(_motor2PWM, pwm);
     }
   }
 }
@@ -377,4 +386,141 @@ void botFCTUC::stopMotors()
 {
   this->move(0, 0);
   delay(50);
+}
+// =============================================================
+// = LiDARs ====================================================
+// =============================================================
+/*!
+  @brief   Setup the lidar
+*/
+void botFCTUC::setupLidar()
+{
+  pinMode(_xshutLeft, OUTPUT);
+  pinMode(_xshutFront, OUTPUT);
+  pinMode(_xshutRight, OUTPUT);
+
+  digitalWrite(_xshutLeft, LOW);
+  digitalWrite(_xshutFront, LOW);
+  digitalWrite(_xshutRight, LOW);
+
+  delay(150);
+  digitalWrite(_xshutLeft, HIGH);
+  delay(100);
+  setAddressLidar(_lidarLeft, (uint8_t)_lidarLeftAddr);
+
+  delay(150);
+
+  digitalWrite(_xshutFront, HIGH);
+  delay(100);
+  setAddressLidar(_lidarFront, (uint8_t)_lidarFrontAddr);
+  delay(150);
+
+  digitalWrite(_xshutRight, HIGH);
+  delay(100);
+  setAddressLidar(_lidarRight, (uint8_t)_lidarRightAddr);
+  delay(150);
+
+  _lidarLeft.init(true);
+  _lidarFront.init(true);
+  _lidarRight.init(true);
+
+  _lidarLeft.setTimeout(10);
+  _lidarFront.setTimeout(10);
+  _lidarRight.setTimeout(10);
+
+  delay(150);
+  _lidarLeft.startContinuous(0);
+  _lidarFront.startContinuous(0);
+  _lidarRight.startContinuous(0);
+}
+/*!
+  @brief   Set the LiDAR adress
+*/
+void botFCTUC::setAddressLidar(VL53L0X &LIDAR, uint8_t new_addr)
+{
+  LIDAR.setAddress(new_addr);
+}
+/*!
+  @brief   Get the LiDAR distance value
+  @param   lidarLocation The lidar to return the distance |
+           ESQUERDA ou 1 Lidar esquerdo |
+           CENTRO ou 2 Lidar centro |
+           DIREITA ou 3 Lidar direito |
+  @return  the distance value
+*/
+uint16_t botFCTUC::lidarGetDistance(uint8_t lidarLocation)
+{
+  uint16_t returnDist;
+
+  switch (lidarLocation)
+  {
+  case 1:
+    returnDist = _lidarLeft.readRangeContinuousMillimeters();
+    if (returnDist > _lidarDistMax)
+    {
+      returnDist = _lidarDistMax;
+    }
+
+    return returnDist;
+    break;
+  case 2:
+    returnDist = _lidarFront.readRangeContinuousMillimeters();
+
+    if (returnDist > _lidarDistMax)
+    {
+      returnDist = _lidarDistMax;
+    }
+
+    return returnDist;
+    break;
+  case 3:
+    returnDist = _lidarRight.readRangeContinuousMillimeters();
+
+    if (returnDist > _lidarDistMax)
+    {
+      returnDist = _lidarDistMax;
+    }
+
+    return returnDist;
+    break;
+  default:
+    return 0;
+    break;
+  }
+}
+
+void botFCTUC::lidarPrint()
+{
+  DEBUG_PRINT("Esquerda: ");
+  DEBUG_PRINT(this->lidarGetDistance(ESQUERDA));
+  DEBUG_PRINT("mm      Frente: ");
+  DEBUG_PRINT(this->lidarGetDistance(CENTRO));
+  DEBUG_PRINT("mm      Direita: ");
+  DEBUG_PRINT(this->lidarGetDistance(DIREITA));
+  DEBUG_PRINTLN("mm");
+}
+
+void botFCTUC::printI2C()
+{
+  Serial.println("I2C scanner. Scanning ...");
+  byte count = 0;
+
+  for (byte i = 1; i < 120; i++)
+  {
+    Wire.beginTransmission(i);
+    if (Wire.endTransmission() == 0)
+    {
+      Serial.print("Found address: ");
+      Serial.print(i, DEC);
+      Serial.print(" (0x");
+      Serial.print(i, HEX);
+      Serial.println(")");
+      count++;
+      delay(1); // maybe unneeded?
+    }           // end of good response
+  }             // end of for loop
+  Serial.println("Done.");
+  Serial.print("Found ");
+  Serial.print(count, DEC);
+  Serial.println(" device(s).");
 }

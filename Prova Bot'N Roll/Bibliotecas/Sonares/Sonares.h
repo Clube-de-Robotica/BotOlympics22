@@ -34,6 +34,7 @@ private:
     // LEFT, CENTER, RIGHT
     uint8_t _echoSonares[_SONAR_AMOUNT] = {6, 8, 10};
     uint8_t _triggerSonares[_SONAR_AMOUNT] = {7, 9, 11};
+    float _AIRSPEED = 58.30903; // 343 M/s -> 2 times (Go and come back) -> 1 / (0.0343 / 2)
 
 public:
     uint16_t getSonar(uint8_t, uint8_t);

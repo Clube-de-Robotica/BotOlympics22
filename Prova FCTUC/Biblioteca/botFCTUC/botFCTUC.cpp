@@ -102,8 +102,8 @@ void botFCTUC::waitStart()
     if (millis() - _previousMillis >= 500)
     {
       _previousMillis = millis();
-      this->pixelSetColor(0, !(greenOrBlue)*255, (greenOrBlue)*255);
-      greenOrBlue = !greenOrBlue;
+      this->pixelSetColor(0, (isGreen)*255, 0);
+      isGreen = !isGreen;
     }
   }
 
@@ -155,7 +155,6 @@ void botFCTUC::setupNeopixel()
   this->_pixel->begin();
   this->pixelSetBrightness(255);
   this->pixelSetColor(0, 255, 0);
-  DEBUG_PRINTLN("[INFO] - NeoPixel Started");
 }
 
 /*!
@@ -488,7 +487,9 @@ uint16_t botFCTUC::lidarGetDistance(uint8_t lidarLocation)
     break;
   }
 }
-
+/*!
+  @brief   Print all the lidar distances
+*/
 void botFCTUC::lidarPrint()
 {
   DEBUG_PRINT("Esquerda: ");
@@ -499,7 +500,9 @@ void botFCTUC::lidarPrint()
   DEBUG_PRINT(this->lidarGetDistance(DIREITA));
   DEBUG_PRINTLN("mm");
 }
-
+/*!
+  @brief   Print all the detected I2C devices
+*/
 void botFCTUC::printI2C()
 {
   Serial.println("I2C scanner. Scanning ...");

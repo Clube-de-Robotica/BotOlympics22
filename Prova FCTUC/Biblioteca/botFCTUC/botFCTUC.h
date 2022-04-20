@@ -90,7 +90,7 @@ private:
     //----------------------------------------------------------
     // Some Vars
     uint32_t _previousMillis = 0;
-    bool greenOrBlue = false;
+    bool isGreen = false;
     //----------------------------------------------------------
     // Color Sensor
     Adafruit_TCS34725 _colorSensor;
@@ -162,7 +162,6 @@ public:
 
     // Lidars
     uint16_t lidarGetDistance(uint8_t lidarLocation);
-
     void printI2C();
     void lidarPrint();
 };

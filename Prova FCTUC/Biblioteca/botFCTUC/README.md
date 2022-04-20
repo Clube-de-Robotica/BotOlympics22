@@ -1,17 +1,6 @@
 # Bibloteca FCTUC
 
 ```cpp
-// Constructor
-botFCTUC::botFCTUC()
-{
-
-} // End Constructor
-
-// Destructor
-botFCTUC::~botFCTUC()
-{
-} // End Destructor
-
 /*!
   @brief   Set up the robot
   @param   M1 If the motor 1 spins the correct way or not

@@ -18,6 +18,12 @@ void Sonares::getSonares(uint16_t Distance[])
     }
 }
 
+/*!
+  @brief Return the distance of all sonares
+  @param trigger Sonar Trigger Pin
+  @param echo Sonar Echo Pin
+  @return the distance measured by the sonar
+*/
 uint16_t Sonares::getSonar(uint8_t trigger, uint8_t echo)
 {
     digitalWrite(trigger, LOW);
@@ -29,5 +35,5 @@ uint16_t Sonares::getSonar(uint8_t trigger, uint8_t echo)
     uint16_t _sonarOut = pulseIn(echo, HIGH);
     delay(50);
 
-    return (_sonarOut / 58.2);
+    return (_sonarOut / _AIRSPEED);
 }

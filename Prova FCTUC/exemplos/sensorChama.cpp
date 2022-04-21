@@ -16,20 +16,24 @@
 // = detetar a chama
 // =
 // =============================================================
-
-#define flameSensor A0
+#include <Arduino.h>
+#include "botFCTUC.h"
 
 const int flameTreshold = 300; // Altera este valor consoante o teu sensor!
+
+botFCTUC jeff;
 
 void setup()
 {
     Serial.begin(9600);
-    Serial.print("Teste sensor Chama");
+    jeff.begin();
+
+    Serial.println("Teste sensor Chama");
 }
 
 void loop()
 {
-    int sensorValue = analogRead(flameSensor);
+    int sensorValue = jeff.getFlame();
 
     Serial.print("Valor Sensor: " + String(sensorValue));
     Serial.println("\tChama detetada: " + String((sensorValue <= flameTreshold) ? "Sim!" : "Nao!"));

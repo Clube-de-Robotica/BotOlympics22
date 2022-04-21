@@ -52,7 +52,15 @@
 #define DEBUG_PRINT(x)
 #define DEBUG_PRINTLN(x)
 #endif
+//----------------------------------------------------------
+// Auxiliry Define
+#define ESQUERDA 1
+#define CENTRO 2
+#define DIREITA 3
 
+//----------------------------------------------------------
+// Auxiliry Libraries
+#include <Wire.h>
 //----------------------------------------------------------
 // External Auxiliry Libraries
 #include <./external/Adafruit_NeoPixel.h>
@@ -72,7 +80,7 @@ private:
     const uint8_t _buzzerPin = 9;    // Buzzer
     const uint8_t _xshutRight = 10;  // XSHUT LiDAR Direita
     const uint8_t _xshutFront = 11;  // XSHUT LiDAR Frente
-    const uint8_t _xhsutLeft = 12;   // XSHUT LiDAR Esquerda
+    const uint8_t _xshutLeft = 12;   // XSHUT LiDAR Esquerda
     const uint8_t _flameSensor = A0; // Sensor infravermelho
     const uint8_t _buttonPin = A1;   // Botão
     const uint8_t _fanPin = A2;      // Ventoinha
@@ -82,7 +90,7 @@ private:
     //----------------------------------------------------------
     // Some Vars
     uint32_t _previousMillis = 0;
-    bool greenOrBlue = false;
+    bool isGreen = false;
     //----------------------------------------------------------
     // Color Sensor
     Adafruit_TCS34725 _colorSensor;
@@ -92,49 +100,69 @@ private:
     bool _isMotor1Correct = true;
     bool _isMotor2Correct = true;
     //----------------------------------------------------------
+    // LiDAR's
+    const uint8_t _lidarLeftAddr = 0x70;
+    const uint8_t _lidarFrontAddr = 0x71;
+    const uint8_t _lidarRightAddr = 0x72;
+
+    const uint16_t _lidarDistMin = 0;
+    const uint16_t _lidarDistMax = 2600;
+
+    VL53L0X _lidarLeft;
+    VL53L0X _lidarFront;
+    VL53L0X _lidarRight;
+    //----------------------------------------------------------
+    // Setup Functions
+    void setupFan();
+    void setupButton();
+    void setupBuzzer();
+    void setupNeopixel();
+    void setupFlame();
+    bool setupColorSensor();
+    void setupMotores(bool isMotor1Correct, bool isMotor2Correct);
+    void setupLidar();
+    void setAddressLidar(VL53L0X &LIDAR, uint8_t new_addr);
+    //----------------------------------------------------------
 
 public:
     botFCTUC();
     ~botFCTUC();
 
-    void setupMotores();
-    void setupLidar();
+    void begin(bool M1 = true, bool M2 = true);
 
     // Fan Control Routines
-    void setupFan();
     void fanOn();
     void fanOff();
 
     // Button Routines
-    void setupButton();
     void waitStart();
     bool readButton();
 
     // Buzzer Routines
-    void setupBuzzer();
     void buzzerPlay(uint8_t val);
 
     // NeoPixel Routines
-    void setupNeopixel();
     void pixelSetColor(uint8_t Red, uint8_t Green, uint8_t Blue);
     void pixelSetBrightness(uint8_t Brightness);
 
     // Flame Sensor
-    void setupFlame();
     uint16_t getFlame();
     void printFlame();
 
     // Color Sensor
-    bool setupColorSensor();
     void getColor(uint16_t RGBC[]);
     void enableColorSensor();
     void disableColorSensor();
 
     // Motors
-    void setupMotores(bool isMotor1Correct, bool isMotor2Correct);
     void moveMotor1(int16_t pwm);
     void moveMotor2(int16_t pwm);
     void move(int16_t pwmM1, int16_t pwmM2);
     void stopMotors();
+
+    // Lidars
+    uint16_t lidarGetDistance(uint8_t lidarLocation);
+    void printI2C();
+    void lidarPrint();
 };
 #endif

@@ -18,7 +18,6 @@ Neste repositório podes encontrar todo o tipo de código que necessitas para qu
         ├──lib                -> Biblotecas
     ├──Drivers Robot          -> Drivers Robô
     ├──Manual_BotNRoll_ONE-A  -> Documentação Robô 🤖
-    ├──README.md              -> 
 ├──Formações                  -> Powerpoints usados nas formações 📚
     ├──Formação_Arduino       -> Powerpoint usado na formação de Arduino 📚
     ├──Formação_BnR           -> Powerpoint usado na formação Bot'N Roll 📚

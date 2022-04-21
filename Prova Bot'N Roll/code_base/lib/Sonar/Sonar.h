@@ -7,11 +7,11 @@
 
 #include "Arduino.h"
 
-#define LSonarTrigPin 6
-#define LSonarEchoPin 7
+#define LSonarTrigPin 7
+#define LSonarEchoPin 6
 
-#define MSonarTrigPin 8
-#define MSonarEchoPin 9
+#define MSonarTrigPin 9
+#define MSonarEchoPin 8
 
 #define RSonarTrigPin 10
 #define RSonarEchoPin 5

@@ -62,10 +62,20 @@ Na imagem é possível ver os exemplos mencionados.
 
 
 
-### Sensores
+## Sensores
 
-#### Sensor de Chama
+### Sensor de Chama
 
 Para detetar a vela o robô dispõe de um sensor de infravermelhos. 
 O sensor é capaz de detetar uma chama diretamente à sua frente, devolendo um sinal analógico que pode ser obtido através de um ADC do arduino.  
-Para testar o sensor e obter os valores *treshold* existe um código de exemplo [aqui](exemplos/sensorChama.c "Exemplo Sensor de Chama").
+Para testar o sensor e obter os valores *treshold* existe um código de exemplo [aqui](exemplos/sensorChama.cpp "Exemplo Sensor de Chama").  
+
+
+### Sensor de Cor
+
+Para detetar a entrada num quarto, que se encontra delemitado por uma linha branca existe um sensor de cor na parte inferior do robô.  
+O modelo deste sensor é TCS34725, este devolve os valores para a cor Vermelha, Verde, Azul e o Clear. Código de exemplo disponível [aqui](exemplos/sensorCor.cpp "Exemplo Sensor de Cor").
+
+### Sensor de Distância
+
+O robô está equipado com 3 LiDARs que permitem medir a distância a objetos 
